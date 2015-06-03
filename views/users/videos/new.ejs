@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  	<script src="/scripts/main.js">
+    </script>
+  </head>
+  <body>
+    <!--1. The 'widget' div element contains the upload widget. -->
+    <!-- The 'player' div element contains the player IFrame. -->
+    <div id="widget"></div>
+    <div id="player"></div>
+    <form action="/users/<%=userId%>/videos" method="POST">
+    <input type="text" name="video[title]" placeholder="Title">
+      <input type="text" name="video[description]" placeholder="">
+      <input type='hidden' name="video[ytVideoId]" id="videoId" />
+      <button type="submit">Save to Profile</button>
+    </form>
+  </body>
+</html>
