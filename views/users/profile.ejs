@@ -1,6 +1,58 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <p>This is the profile page</p>
+
+
+  	<div class="container"> 
+  		<div class="row">
+  			<div class="col-sm-12">
+  				<h3>this is the profile page</h3>
+  			</div>
+  		</div>
+  	</div>
+  	<div class="container"> 
+  		<div class="col-sm-8">
+
+  		</div>
+  			<div class="col-sm-4">
+  
+  		
+
+  			</div>				
+  		</div>
+  	</div>
+
+  	<div class="container">
+  		<div>
+	  		<table style="width:100%">
+				<th>
+					<tr>
+						<td>Title</td>
+						<td>Date Created</td>
+					</tr>
+				</th>
+				<div>
+	      	<% videos.forEach(function(video){ %>
+	  			<tb>
+	  				<tr onclick="document.location = '/users/<%=video.userId%>/videos/<%=video.id%>/<%=video.ytVideoId%>'">
+	  					<td>
+	  						<%= video.title %>
+	  					</td>
+	  					<td>
+	  						<%= video.createdAt %>
+	  					</td>
+	  					<td>
+					    	<form method="POST" action="/users/<%=video.userId%>/videos/<%=video.id%>?_method=delete">
+					    		<button type="submit">Delete Video</button>
+					    	</form>
+					    </td>
+					    <td>
+					    </td>
+	  				</tr>
+	  			</tb>
+	  			<% }) %>
+	  		</table>
+   		</div>
+  	</div>
   </body>
 </html>
