@@ -57,25 +57,7 @@ app.use("/", function (req, res, next) {
 
 // CREATING GET REQUESTS:
 app.get('/', function(req, res) {
-    // // requesting the current user
-    //   req.currentUser()
-    //   // then it is asking if the user is logged in or not
-    //   .then(function(dbUser){
-    //     if (dbUser) {
-    //       // find favorite joke from db with user Id
-    //       // db.Video.findAll({where: {userId: dbUser.id}})
-    //         // .then(function(videos){
-    //           console.log("test work!");
-
-    //           console.log("testing session",dbUser );
-    //           // this let me pass the user into the page
-    //         res.redirect('user/profile');
-    //       // });
-    //     } else {
-          console.log("hello");
          res.render('index');
-      //   }
-      // });
   });
 
 // SIGN UP 
@@ -84,10 +66,9 @@ app.get("/signup", function (req, res) {
   res.render("users/signup");
 });
 
-
-// reference signup.ejs
-// this will post to the db after you click the signup button
+// SIGN UP POST
 app.post('/signup', function(req,res){
+    var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
     db.User.createSecure(email,password)
@@ -96,9 +77,7 @@ app.post('/signup', function(req,res){
         });
 });
 
-
-// reference login.ejs
-// this is for the login to account
+//LOGIN
 app.get('/login', function(req,res){
     req.currentUser()
       .then(function(user){
@@ -111,8 +90,7 @@ app.get('/login', function(req,res){
     });
 });
 
-// reference login.ejs
-// this is to authenticate the login
+//LOGIN POST
 app.post('/login', function(req,res){
     var email = req.body.email;
     var password = req.body.password;
@@ -133,18 +111,7 @@ app.post('/login', function(req,res){
         }); 
 });
 
-// app.get('/profile', function (req, res) {
-//   req.currentUser()
-//       .then(function (user) {
-//         console.log(" THIS IS THE USER ID: ", user.id);
-//         res.render("users/profile");
-
-//       })
-
-// });
-
-// COPIED FROM JAMES' CODE FROM SEPARATE FILE:
-  // Using example from CopyrightOn to perform a find method:
+//PROFILE
 app.get('/profile', function(req, res) {
   req.currentUser()
     .then(function (user) {
@@ -157,100 +124,15 @@ app.get('/profile', function(req, res) {
    })
 });
 
-// END OF COPIED CODE.
 
-
-
-
-
-
-// <<<<<<< HEAD
-// CODE CONFLICT!!! REVIEW AFTER PUSH
-/////////////////////////////////////
-
-// // app.get('/users/:id', function(req, res) {
-// //   var userId = req.params.id;
-
-
-//   // Using example from CopyrightOn to perform a find method:
-// app.get('/users/:id', function(req, res) {
-//   var userId = req.params.id;
-//   db.Video.findAll({where:{userId: userId}})
-// =======
-// app.get('/profile', function(req,res){
-//     req.currentUser()
-//     .then(function (dbUser){
-//       if (dbUser) {
-//         db.User.findAll({where: {UserId: dbUser.id}})
-//           .then(function(videos){
-//             console.log("test work!");
-//           res.render('user/profile', {videos: videos});
-//         });
-//       } else {
-//        res.redirect('/login');
-//       }
-//     });
-// });
-
-
-//this is to end the session
+//SESSION DELETION
 app.delete('/logout', function(req,res){
     req.logout();
     res.redirect('/login');
 });
-  
 
 
-
-// where the user submits the sign-up form
-app.post("/users", function(req, res){
-  // grab the user from the params
-  var user = req.body.user;
-  // create the new user
-  db.User.
-  createSecure(user.email, user.password)
-    .then(function(){
-      res.send("SIGN UP TODAY!");
-    });
-});
-
-
-
-
-
-
-// **** MIKE UPDATED CODE IN HERE ****
-// app.get('/users/:id', function(req, res) {
-//   var userId = req.params.id;
-//   db.Video.findAll({where:{email: userId}})
-// // >>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
-// // END OF CONFLICT
-
-//      .then(function(videos){
-//         console.log("THIS IS VIDEOS", videos);
-//         res.render('users/profile.ejs', {videos: videos});
-//      })
-// });
-// **** END HERE ****
-
-
-
-//     db.Video.findAll({ where: { userId: userId }})
-//     .then(function(foundVideos) {
-//       console.log(foundVideos);
-//       res.render('users/profile.ejs', {myVideos: foundVideos});
-//     })
-
- 
-
-
-//   // Using in class notes to perform a find method:
-//   // db.Video.find(userId)
-//   // .then(function(video) {
-//   //   res.render('users/profile.ejs', {video: video,id: userId}); // We use res.render to display an EJS file instead of res.send() 
-//   // });
-// });
-
+//NEW VIDEO
 app.get('/users/videos/new', function(req, res) {
   req.currentUser()
     .then(function (user) {
@@ -260,6 +142,7 @@ app.get('/users/videos/new', function(req, res) {
  });
 });
 
+//SHOW VIDEO
 app.get('/users/videos/:yt', function(req, res) {
   var ytVideoId = req.params.yt;
   console.log(ytVideoId);
@@ -273,9 +156,7 @@ app.get('/users/videos/:yt', function(req, res) {
  })
 });
 
-
-
-// CREATING POST REQUEST:
+//NEW VIDEO POST:
 app.post('/users/:id/videos', function(req, res) {
   //CREATE LOGIC
   console.log(req.params);
@@ -292,19 +173,9 @@ app.post('/users/:id/videos', function(req, res) {
     }).then(function() {
       res.redirect('/profile');
     });
-
-  // TODO
-  // Make a database
-  // videos table
-  // var video = new Video()
-  // video.save();
-
 });
 
-
-///////////////
-//PUT REQUEST//
-///////////////
+//VIDEO DELETE
 app.delete('/users/:id/videos/:id', function (req,res) {
   // console.log("1 test");
   var videoId = req.params.id;
@@ -328,7 +199,6 @@ app.get('/sync', function(req, res) {
   db.sequelize.sync({force:true}).then(function() {
     res.send("Db was synced successfully.");
   })
-
 });
 
 //SETTING THE APP TO LISTEN TO LOCAL SERVER ON PORT 3000:
