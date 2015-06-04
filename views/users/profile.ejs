@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-    <% include ../partials/head %>
-    </head>
-  <body>
-     <% include ../partials/navbar %>
+<% include ../partials/head %>
+<% include ../partials/navbar %>
 
               <!-- start navtabs -->
               <div class="navbar-collapse collapse">
@@ -20,35 +15,13 @@
                 
                 <li class="dropdown"> </li>
               </ul> 
-            </div>          
-            </div>
-        </div>
         <!--end navbar-->
-
-        <form method="POST" action="/logout?_method=DELETE">
+<br><br><br>
+      
+      <div>
+          <form method="POST" action="/logout?_method=DELETE">
           <button class="btn btn-danger">Logout</button>
         </form>
+      </div>
 
-
-        <div class="container"> 
-          <div class="row">
-            <div class="col-sm-12">
-              <h3>this is the profile page</h3>
-            </div>
-          </div>
-        </div>
-        <div class="container"> 
-          <div class="col-sm-8">
-
-          </div>
-            <div class="col-sm-4">
-      
-          
-
-            </div>        
-          </div>
-        </div>
-
-
-  </body>
-</html>
+<% include ../partials/footer %>

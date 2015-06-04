@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
- 	 <head>
- 	 	<% include ../partials/head %>
-    </head>
-	<body>
-    	<!-- start navbar -->
-    	<% include ../partials/navbar %>
+<% include ../partials/head %>
+<!-- start navbar -->
+<% include ../partials/navbar %>
 
     			<!-- start navtabs -->
 			    <div class="navbar-collapse collapse">
@@ -20,10 +15,8 @@
 		    </div>
 		</div>
 		<!--end navtab-->
+		<BR><BR><BR><BR>
 
-		<form method="POST" action="/logout?_method=DELETE">
-		  <button class="btn btn-danger">Logout</button>
-		</form>
 
 		
 <div class="col-sm-4">
@@ -34,10 +27,14 @@
 		<button class="btn btn-danger">Login</button>
 		</form>
 	</div>
+	<BR>
+		      
+		      <div>
+		        <form method="POST" action="/logout?_method=DELETE">
+		          <button class="btn btn-danger">Logout</button>
+		        </form>
+		      </div>
 </div>
+
 <!-- end of Login box -->
-
-
-
-	</body>
-</html>
+<% include ../partials/footer %>

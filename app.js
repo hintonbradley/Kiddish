@@ -56,24 +56,25 @@ app.use("/", function (req, res, next) {
 
 // CREATING GET REQUESTS:
 app.get('/', function(req, res) {
-    // requesting the current user
-      req.currentUser()
-      // then it is asking if the user is logged in or not
-      .then(function(dbUser){
-        if (dbUser) {
-          // find favorite joke from db with user Id
-          // db.Video.findAll({where: {userId: dbUser.id}})
-            // .then(function(videos){
-              console.log("test work!");
+    // // requesting the current user
+    //   req.currentUser()
+    //   // then it is asking if the user is logged in or not
+    //   .then(function(dbUser){
+    //     if (dbUser) {
+    //       // find favorite joke from db with user Id
+    //       // db.Video.findAll({where: {userId: dbUser.id}})
+    //         // .then(function(videos){
+    //           console.log("test work!");
 
-              console.log("testing session",dbUser );
-              // this let me pass the user into the page
-            res.redirect('index');
-          // });
-        } else {
-         res.redirect('/login');
-        }
-      });
+    //           console.log("testing session",dbUser );
+    //           // this let me pass the user into the page
+    //         res.redirect('user/profile');
+    //       // });
+    //     } else {
+          console.log("hello");
+         res.render('index');
+      //   }
+      // });
   });
 
 // SIGN UP 
