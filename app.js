@@ -92,7 +92,7 @@ app.post('/signup', function(req,res){
     var password = req.body.password;
     db.User.createSecure(email,password)
         .then(function(user){
-          res.redirect('/profile');
+          res.redirect('/login');
         });
 });
 
@@ -102,7 +102,7 @@ app.post('/signup', function(req,res){
 app.get('/login', function(req,res){
     req.currentUser()
       .then(function(user){
-        console.log("GET LOGIN")
+        console.log("THIS IS THE USER INFORMATION: ", user);
         if (user) { //if already logged in, will redirect to profile page
             res.redirect('users/profile');
         } else { // if not logged in, you will be sent to login page
@@ -133,14 +133,36 @@ app.post('/login', function(req,res){
         }); 
 });
 
-app.get('/profile', function (req, res) {
+// app.get('/profile', function (req, res) {
+//   req.currentUser()
+//       .then(function (user) {
+//         console.log(" THIS IS THE USER ID: ", user.id);
+//         res.render("users/profile");
+
+//       })
+
+// });
+
+// COPIED FROM JAMES' CODE FROM SEPARATE FILE:
+  // Using example from CopyrightOn to perform a find method:
+app.get('/profile', function(req, res) {
   req.currentUser()
-      .then(function (user) {
-        res.render("users/profile",{ejsUser: user});
-
-      })
-
+    .then(function (user) {
+  var userId = user.id;
+  db.Video.findAll({where:{userId: userId}})
+     .then(function(videos){
+        console.log("THIS IS VIDEOS", videos);
+        res.render('users/profile.ejs', {videos: videos});
+     })
+   })
 });
+
+// END OF COPIED CODE.
+
+
+
+
+
 
 // <<<<<<< HEAD
 // CODE CONFLICT!!! REVIEW AFTER PUSH
@@ -198,17 +220,17 @@ app.post("/users", function(req, res){
 
 
 // **** MIKE UPDATED CODE IN HERE ****
-app.get('/users/:id', function(req, res) {
-  var userId = req.params.id;
-  db.Video.findAll({where:{email: userId}})
-// >>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
-// END OF CONFLICT
+// app.get('/users/:id', function(req, res) {
+//   var userId = req.params.id;
+//   db.Video.findAll({where:{email: userId}})
+// // >>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
+// // END OF CONFLICT
 
-     .then(function(videos){
-        console.log("THIS IS VIDEOS", videos);
-        res.render('users/profile.ejs', {videos: videos});
-     })
-});
+//      .then(function(videos){
+//         console.log("THIS IS VIDEOS", videos);
+//         res.render('users/profile.ejs', {videos: videos});
+//      })
+// });
 // **** END HERE ****
 
 
@@ -229,21 +251,28 @@ app.get('/users/:id', function(req, res) {
 //   // });
 // });
 
-app.get('/users/:id/videos/new', function(req, res) {
-  var userId = req.params.id;
+app.get('/users/videos/new', function(req, res) {
+  req.currentUser()
+    .then(function (user) {
+  var userId = user.id;
+  // var userId = req.params.id;
    res.render('users/videos/new.ejs',{userId: userId}); // We use res.render to display an EJS file instead of res.send() 
+ });
 });
 
-app.get('/users/:id/videos/:id/:yt', function(req, res) {
-  var ytId = req.params.yt;
-  var videoId=req.params.id;
-  console.log(videoId);
-  db.Video.findById(videoId)
+app.get('/users/videos/:yt', function(req, res) {
+  var ytVideoId = req.params.yt;
+  console.log(ytVideoId);
+  // var videoId=req.params.id;
+  // console.log(videoId);
+  // db.Video.findById(ytId)
+  db.Video.findAll({where:{ytVideoId: ytVideoId}})
    .then(function(singleVideo){
-      console.log("THIS IS VIDEOS", singleVideo);
-   })
-   res.render('users/videos/show.ejs',{jamesBradley: jamesBrad}); // We use res.render to display an EJS file instead of res.send() 
+      console.log("THIS IS THE VIDEO", singleVideo);
+   res.render('users/videos/show.ejs',{taco: singleVideo, ytVideoId: ytVideoId}); // We use res.render to display an EJS file instead of res.send() 
+ })
 });
+
 
 
 // CREATING POST REQUEST:
@@ -261,7 +290,7 @@ app.post('/users/:id/videos', function(req, res) {
       description: video.description,
       ytVideoId: video.ytVideoId
     }).then(function() {
-      res.redirect('/users/'+req.params.id);
+      res.redirect('/profile');
     });
 
   // TODO
@@ -288,7 +317,7 @@ app.delete('/users/:id/videos/:id', function (req,res) {
       // console.log("3 Video: ", foundVideo)
       foundVideo.destroy()
       .then(function() {
-        res.redirect('/users/'+ userId);
+        res.redirect('/profile');
       });
     });
 });

@@ -3,12 +3,26 @@
   <head>
   </head>
   <body>
+              <!-- start navtabs -->
+          <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/users/videos/new">Create Video</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li class="active"><a href="/login">Login</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+            <li class="dropdown"> </li>
+          </ul> 
+        </div>          
+        </div>
+    </div>
+    <!--end navtab-->
     <div id="title">
       <h1>title</h1>
     </div>
   	<!-- The 'player' div element contains the player IFrame. -->
   	<div>
-    	<iframe width="420" height="315" src="http://www.youtube.com/embed/<%=ytId%>?rel=0&modestbranding=1">
+    	<iframe width="420" height="315" src="http://www.youtube.com/embed/<%=ytVideoId%>?rel=0&modestbranding=1">
     	</iframe>
     </form>
 	</div>
