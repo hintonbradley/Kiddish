@@ -63,7 +63,13 @@ app.get('/users/:id/videos/new', function(req, res) {
 
 app.get('/users/:id/videos/:id/:yt', function(req, res) {
   var ytId = req.params.yt;
-   res.render('users/videos/show.ejs',{ytId: ytId}); // We use res.render to display an EJS file instead of res.send() 
+  var videoId=req.params.id;
+  console.log(videoId);
+  db.Video.findById(videoId)
+   .then(function(singleVideo){
+      console.log("THIS IS VIDEOS", singleVideo);
+   })
+   res.render('users/videos/show.ejs',{jamesBradley: jamesBrad}); // We use res.render to display an EJS file instead of res.send() 
 });
 
 
