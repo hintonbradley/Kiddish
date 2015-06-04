@@ -3,7 +3,6 @@ var express = require("express"),
     ejs = require("ejs"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
-
     db = require("./models"),
     session = require("express-session"),
     app = express();
@@ -142,19 +141,6 @@ app.get('/profile', function (req, res) {
 
 });
 
-// <<<<<<< HEAD
-// CODE CONFLICT!!! REVIEW AFTER PUSH
-/////////////////////////////////////
-
-// // app.get('/users/:id', function(req, res) {
-// //   var userId = req.params.id;
-
-
-//   // Using example from CopyrightOn to perform a find method:
-// app.get('/users/:id', function(req, res) {
-//   var userId = req.params.id;
-//   db.Video.findAll({where:{userId: userId}})
-// =======
 // app.get('/profile', function(req,res){
 //     req.currentUser()
 //     .then(function (dbUser){
@@ -201,9 +187,6 @@ app.post("/users", function(req, res){
 app.get('/users/:id', function(req, res) {
   var userId = req.params.id;
   db.Video.findAll({where:{email: userId}})
-// >>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
-// END OF CONFLICT
-
      .then(function(videos){
         console.log("THIS IS VIDEOS", videos);
         res.render('users/profile.ejs', {videos: videos});
@@ -212,37 +195,13 @@ app.get('/users/:id', function(req, res) {
 // **** END HERE ****
 
 
-
-//     db.Video.findAll({ where: { userId: userId }})
-//     .then(function(foundVideos) {
-//       console.log(foundVideos);
-//       res.render('users/profile.ejs', {myVideos: foundVideos});
-//     })
-
- 
-
-
-//   // Using in class notes to perform a find method:
-//   // db.Video.find(userId)
-//   // .then(function(video) {
-//   //   res.render('users/profile.ejs', {video: video,id: userId}); // We use res.render to display an EJS file instead of res.send() 
-//   // });
-// });
-
 app.get('/users/:id/videos/new', function(req, res) {
   var userId = req.params.id;
    res.render('users/videos/new.ejs',{userId: userId}); // We use res.render to display an EJS file instead of res.send() 
 });
 
-app.get('/users/:id/videos/:id/:yt', function(req, res) {
-  var ytId = req.params.yt;
-  var videoId=req.params.id;
-  console.log(videoId);
-  db.Video.findById(videoId)
-   .then(function(singleVideo){
-      console.log("THIS IS VIDEOS", singleVideo);
-   })
-   res.render('users/videos/show.ejs',{jamesBradley: jamesBrad}); // We use res.render to display an EJS file instead of res.send() 
+app.get('/users/:id/videos/:id', function(req, res) {
+   res.render('users/videos/show.ejs'); // We use res.render to display an EJS file instead of res.send() 
 });
 
 
@@ -271,28 +230,6 @@ app.post('/users/:id/videos', function(req, res) {
   // video.save();
 
 });
-
-
-///////////////
-//PUT REQUEST//
-///////////////
-app.delete('/users/:id/videos/:id', function (req,res) {
-  // console.log("1 test");
-  var videoId = req.params.id;
-  
-  // console.log("2 This is the video ID: ",videoId);
-  db.Video.findById(videoId)
-    .then(function(foundVideo){
-      var userId = foundVideo.userId;
-      // console.log("This is the req.params ", userId);
-      // console.log("3 Video: ", foundVideo)
-      foundVideo.destroy()
-      .then(function() {
-        res.redirect('/users/'+ userId);
-      });
-    });
-});
-
 
 app.get('/sync', function(req, res) {
   console.log("SYNC")

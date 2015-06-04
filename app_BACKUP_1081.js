@@ -3,10 +3,14 @@ var express = require("express"),
     ejs = require("ejs"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
-
+<<<<<<< HEAD
+    //Creating models to define how data is to be stored:
+  db = require("./models");
+=======
     db = require("./models"),
     session = require("express-session"),
     app = express();
+>>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
 
 app.set('view engine', 'ejs');
 
@@ -142,19 +146,16 @@ app.get('/profile', function (req, res) {
 
 });
 
-// <<<<<<< HEAD
-// CODE CONFLICT!!! REVIEW AFTER PUSH
-/////////////////////////////////////
-
-// // app.get('/users/:id', function(req, res) {
-// //   var userId = req.params.id;
-
-
-//   // Using example from CopyrightOn to perform a find method:
+<<<<<<< HEAD
 // app.get('/users/:id', function(req, res) {
 //   var userId = req.params.id;
-//   db.Video.findAll({where:{userId: userId}})
-// =======
+
+
+  // Using example from CopyrightOn to perform a find method:
+app.get('/users/:id', function(req, res) {
+  var userId = req.params.id;
+  db.Video.findAll({where:{userId: userId}})
+=======
 // app.get('/profile', function(req,res){
 //     req.currentUser()
 //     .then(function (dbUser){
@@ -201,9 +202,7 @@ app.post("/users", function(req, res){
 app.get('/users/:id', function(req, res) {
   var userId = req.params.id;
   db.Video.findAll({where:{email: userId}})
-// >>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
-// END OF CONFLICT
-
+>>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
      .then(function(videos){
         console.log("THIS IS VIDEOS", videos);
         res.render('users/profile.ejs', {videos: videos});
@@ -272,7 +271,7 @@ app.post('/users/:id/videos', function(req, res) {
 
 });
 
-
+<<<<<<< HEAD
 ///////////////
 //PUT REQUEST//
 ///////////////
@@ -293,12 +292,13 @@ app.delete('/users/:id/videos/:id', function (req,res) {
     });
 });
 
-
+=======
 app.get('/sync', function(req, res) {
   console.log("SYNC")
   db.sequelize.sync({force:true}).then(function() {
     res.send("Db was synced successfully.");
   })
+>>>>>>> 115a52978286a454d8e426f9ff99ac8f62c11123
 
 });
 
