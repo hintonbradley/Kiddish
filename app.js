@@ -202,4 +202,4 @@ app.get('/sync', function(req, res) {
 });
 
 //SETTING THE APP TO LISTEN TO LOCAL SERVER ON PORT 3000:
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
