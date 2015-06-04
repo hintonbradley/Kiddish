@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+ 	 <head>
+ 	 	<% include ../partials/head %>
+    </head>
+	<body>
+    	<!-- start navbar -->
+    	<% include ../partials/navbar %>
+
+    			<!-- start navtabs -->
+			    <div class="navbar-collapse collapse">
+			      	<ul class="nav navbar-nav navbar-right">
+			     	   	<li><a href="/">Home</a></li>
+			        	<li><a href="/profile">Profile</a></li>
+			        	<li class="active"><a href="/login">Login</a></li>
+						<li><a href="/signup">Sign Up</a></li>
+						<li class="dropdown"> </li>
+					</ul> 
+				</div>	        
+		    </div>
+		</div>
+		<!--end navtab-->
+
+		<form method="POST" action="/logout?_method=DELETE">
+		  <button class="btn btn-danger">Logout</button>
+		</form>
+
+		
+<div class="col-sm-4">
+	<div class="loginBox">
+		<form method="POST" action="/login">
+		<input type="text" name="email" placeholder="Email"></br></br>
+		<input type="password" name="password" placeholder="Password"></br></br>
+		<button class="btn btn-danger">Login</button>
+		</form>
+	</div>
+</div>
+<!-- end of Login box -->
+
+
+
+	</body>
+</html>

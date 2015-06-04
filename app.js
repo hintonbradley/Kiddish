@@ -3,14 +3,12 @@ var express = require("express"),
     ejs = require("ejs"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
-    //Creating models to define how data is to be stored:
-	db = require("./models");
+    db = require("./models"),
+    session = require("express-session"),
+    app = express();
 
-// Now instantiate our express app:
-var app = express();
-
-// Set the view engine to be "EJS"
 app.set('view engine', 'ejs');
+
 app.use(express.static(__dirname + '/public'));
 
 // Set up body parser
@@ -19,18 +17,185 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Set up method override to work with POST requests that have the parameter "_method=DELETE"
 app.use(methodOverride('_method'))
 
+// This defines req.session
+app.use(session({
+  secret: 'super secret',
+  resave: false,
+  saveUninitialized: true
+}))
+
+// this is the login/logout session
+app.use("/", function (req, res, next) {
+  req.login = function (user) {
+    req.session.userId = user.id;
+  };
+
+  req.currentUser = function () {
+    return db.User.
+      find({
+        where: {
+          id: req.session.userId
+
+       }
+      }).
+      then(function (user) {
+        req.user = user;
+        // console.log("testing session",req.user );
+        return user;
+      })
+  };
+
+  req.logout = function () {
+    req.session.userId = null;
+    req.user = null;
+  }
+
+  next(); 
+});
+
 
 // CREATING GET REQUESTS:
 app.get('/', function(req, res) {
-   res.render('index.ejs'); // We use res.render to display an EJS file instead of res.send() 
+    // requesting the current user
+      req.currentUser()
+      // then it is asking if the user is logged in or not
+      .then(function(dbUser){
+        if (dbUser) {
+          // find favorite joke from db with user Id
+          // db.Video.findAll({where: {userId: dbUser.id}})
+            // .then(function(videos){
+              console.log("test work!");
+
+              console.log("testing session",dbUser );
+              // this let me pass the user into the page
+            res.redirect('index');
+          // });
+        } else {
+         res.redirect('/login');
+        }
+      });
+  });
+
+// SIGN UP 
+app.get("/signup", function (req, res) {
+  console.log("getting signup");
+  res.render("users/signup");
 });
 
-app.get('/users/:id', function(req, res) {
-   res.render('users/profile.ejs'); // We use res.render to display an EJS file instead of res.send() 
+
+// reference signup.ejs
+// this will post to the db after you click the signup button
+app.post('/signup', function(req,res){
+    var email = req.body.email;
+    var password = req.body.password;
+    db.User.createSecure(email,password)
+        .then(function(user){
+          res.redirect('/profile');
+        });
 });
+
+
+// reference login.ejs
+// this is for the login to account
+app.get('/login', function(req,res){
+    req.currentUser()
+      .then(function(user){
+        console.log("GET LOGIN")
+        if (user) { //if already logged in, will redirect to profile page
+            res.redirect('users/profile');
+        } else { // if not logged in, you will be sent to login page
+            res.render("users/login");
+        }
+    });
+});
+
+// reference login.ejs
+// this is to authenticate the login
+app.post('/login', function(req,res){
+    var email = req.body.email;
+    var password = req.body.password;
+    console.log("I'M LOGGED IN")
+    db.User.authenticate(email,password)
+        .then(function(dbUser){
+            if(dbUser) {
+              console.log("STAGE 2");
+                req.login(dbUser);
+                console.log("test", dbUser)
+                // userId = dbUser.id
+                // res.render('/users/'+ userId + '/profile')
+                res.redirect('/profile');
+            } else {
+              console.log("STAGE 3");
+                res.redirect('/login');
+            }
+        }); 
+});
+
+app.get('/profile', function (req, res) {
+  req.currentUser()
+      .then(function (user) {
+        res.render("users/profile",{ejsUser: user});
+
+      })
+
+});
+
+// app.get('/profile', function(req,res){
+//     req.currentUser()
+//     .then(function (dbUser){
+//       if (dbUser) {
+//         db.User.findAll({where: {UserId: dbUser.id}})
+//           .then(function(videos){
+//             console.log("test work!");
+//           res.render('user/profile', {videos: videos});
+//         });
+//       } else {
+//        res.redirect('/login');
+//       }
+//     });
+// });
+
+
+//this is to end the session
+app.delete('/logout', function(req,res){
+    req.logout();
+    res.redirect('/login');
+});
+  
+
+
+
+// where the user submits the sign-up form
+app.post("/users", function(req, res){
+  // grab the user from the params
+  var user = req.body.user;
+  // create the new user
+  db.User.
+  createSecure(user.email, user.password)
+    .then(function(){
+      res.send("SIGN UP TODAY!");
+    });
+});
+
+
+
+
+
+
+// **** MIKE UPDATED CODE IN HERE ****
+app.get('/users/:id', function(req, res) {
+  var userId = req.params.id;
+  db.Video.findAll({where:{email: userId}})
+     .then(function(videos){
+        console.log("THIS IS VIDEOS", videos);
+        res.render('users/profile.ejs', {videos: videos});
+     })
+});
+// **** END HERE ****
+
 
 app.get('/users/:id/videos/new', function(req, res) {
-	var userId = req.params.id;
+  var userId = req.params.id;
    res.render('users/videos/new.ejs',{userId: userId}); // We use res.render to display an EJS file instead of res.send() 
 });
 
@@ -41,12 +206,12 @@ app.get('/users/:id/videos/:id', function(req, res) {
 
 // CREATING POST REQUEST:
 app.post('/users/:id/videos', function(req, res) {
-	//CREATE LOGIC
-	console.log(req.params);
-	console.log(req.body);
-	var video = req.body.video;
+  //CREATE LOGIC
+  console.log(req.params);
+  console.log(req.body);
+  var video = req.body.video;
 
-	db.Video.create({
+  db.Video.create({
       // ...the user id will be taken from whoever the current user who's logged in at the time...
       userId: req.params.id,
       // and the rest of the data will be taken from the form field from the album.ejs file. (Remember that favorite is equal to req.body.favorite, and everything that comes after is referring to the specific key:value pair in the ejs file.)
@@ -57,15 +222,21 @@ app.post('/users/:id/videos', function(req, res) {
       res.redirect('/users/'+req.params.id);
     });
 
-	// TODO
-	// Make a database
-	// videos table
-	// var video = new Video()
-	// video.save();
+  // TODO
+  // Make a database
+  // videos table
+  // var video = new Video()
+  // video.save();
 
 });
 
+app.get('/sync', function(req, res) {
+  console.log("SYNC")
+  db.sequelize.sync({force:true}).then(function() {
+    res.send("Db was synced successfully.");
+  })
+
+});
 
 //SETTING THE APP TO LISTEN TO LOCAL SERVER ON PORT 3000:
 app.listen(3000);
-
