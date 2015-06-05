@@ -53,6 +53,12 @@
                  <li>
                      <a href="/profile">Profile</a>
                  </li>
+                 <li>
+                   <br>
+                       <form method="POST" action="/logout?_method=DELETE">
+                         <button class="btn btn-danger">Logout</button>
+                       </form>                         
+                 </li>
              </ul>
          </div>
          <!-- /.navbar-collapse -->
@@ -76,14 +82,6 @@
    <!-- The 'player' div element contains the player IFrame. -->
    <div id="widget"></div>
    <div id="player"></div>
-
-
-
-   <div>
-     <form method="POST" action="/logout?_method=DELETE">
-       <button class="btn btn-danger">Logout</button>
-     </form>
-   </div>
 
    <!-- Footer -->
    <footer>
