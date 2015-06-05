@@ -83,7 +83,7 @@ app.get('/login', function(req,res){
       .then(function(user){
         console.log("THIS IS THE USER INFORMATION: ", user);
         if (user) { //if already logged in, will redirect to profile page
-            res.redirect('users/profile');
+            res.redirect('/profile');
         } else { // if not logged in, you will be sent to login page
             res.render("users/login");
         }

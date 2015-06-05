@@ -35,20 +35,5 @@
     <!-- The 'player' div element contains the player IFrame. -->
     <div id="widget"></div>
     <div id="player"></div>
-
-    <form action="/users/<%=userId%>/videos" method="POST">
-    <input type="text" name="video[title]" placeholder="Title">
-      <input type="text" name="video[description]" placeholder="">
-      <input type='hidden' name="video[ytVideoId]" id="videoId" />
-      <button type="submit">Save to Profile</button>
-    </form>
-
-    <div>
-      <form method="POST" action="/logout?_method=DELETE">
-        <button class="btn btn-danger">Logout</button>
-      </form>
-    </div>
-    
-
   </body>
 </html>
