@@ -54,15 +54,16 @@
 	  						<%= video.title %>
 	  					</td>
 	  					<td>
-	  						<%= video.createdAt %>
+	  						<%= video.createdAt.toDateString()%><span> <%= video.createdAt.getHours()%>:<%= video.createdAt.getMinutes()<10?'0'+ video.createdAt.getMinutes():'' + video.createdAt.getMinutes()%>
 	  					</td>
-	  					<td>
-					    	<form method="POST" action="/users/<%=video.userId%>/videos/<%=video.id%>?_method=delete">
-					    		<button type="submit">Delete Video</button>
-					    	</form>
-					    </td>
-					    <td>
-					    </td>
+              <td>
+                <img src="https://i.ytimg.com/vi/<%=video.ytVideoId%>/1.jpg">
+              </td>
+              <td>
+					     <form method="POST" action="/users/<%=video.userId%>/videos/<%=video.id%>?_method=delete">
+					       <button type="submit">Delete Video</button>
+					     </form>
+             </td>
 	  				</tr>
 	  			</tb>
 	  			<% }) %>

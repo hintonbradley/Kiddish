@@ -119,6 +119,7 @@ app.get('/profile', function(req, res) {
   db.Video.findAll({where:{userId: userId}})
      .then(function(videos){
         console.log("THIS IS VIDEOS", videos);
+        console.log("THE CREATED AT DATE IS: ", videos.createdAt);
         res.render('users/profile.ejs', {videos: videos});
      })
    })

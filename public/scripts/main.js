@@ -21,9 +21,12 @@
 
       // 4. This function is called when a video has been successfully uploaded.
       function onUploadSuccess(event) {
+        $("#videoForm").css({"display":"block"});
+          // $('#videoForm').innerHtml="Success!!!";
+          console.log("Button function happening!");
         // 1. post event.data.videoId to 'user/:id/videos'
         // 2. add event.data.videoId to a hidden input field
-        $('#videoId').val(event.data.videoId)
+        $('#videoId').val(event.data.videoId);
         // $('form').submit();
         
         // alert('Video ID ' + event.data.videoId + ' was uploaded and is currently being processed.');
