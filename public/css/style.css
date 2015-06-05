@@ -39,6 +39,33 @@ h6 {
     background-size: cover;
 }
 
+.sign-up{
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: left;
+    color: grey;
+    background: url(../img/kid_guitar.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.login{
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: left;
+    color: grey;
+    background: url(../img/feet.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.profile{
+    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: ;
+    color: #f8f8f8;
+    background: url(../img/kid_tricycle.jpg) no-repeat center center;
+    background-size: cover;
+}
+
 .intro-message {
     position: relative;
     padding-top: 20%;
@@ -117,6 +144,13 @@ h6 {
     padding: 100px 0;
     color: #f8f8f8;
     background: url(../img/kid_dog.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.lowerbanner {
+    padding: 100px 0;
+    color: #f8f8f8;
+    background: url(../img/pencil1.jpg) no-repeat center center;
     background-size: cover;
 }
 

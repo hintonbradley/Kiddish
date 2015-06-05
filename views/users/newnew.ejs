@@ -20,9 +20,10 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
+    <script src="/scripts/main.js"></script>
 </head>
 
+<body> 
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
@@ -38,8 +39,8 @@
                  <img style="max-width:125px; margin-top: -7px;"
                       src="/img/kiddish_logo_150.gif">
              </a>
-
         </div>
+ 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -55,59 +56,67 @@
         </div>
         <!-- /.container -->
     </nav>  
-<body>    
+ 
+
+
+
     <!--end navtab-->
-    <div id="title">
-      <h1><%=singleVideo[0].title%></h1>
-    </div>
-  	<!-- The 'player' div element contains the player IFrame. -->
-  	<div>
-    	<iframe width="420" height="315" src="http://www.youtube.com/embed/<%=ytVideoId%>?rel=0&modestbranding=1">
-    	</iframe>
-    </div>
-    <div>
-      <div id="title">
-        <h3><%=singleVideo[0].description%></h3>
-      </div>
-    </div>
-	</div>
-
-  <div>
-    <form method="POST" action="/logout?_method=DELETE">
-      <button class="btn btn-danger">Logout</button>
+    <div id="videoForm">
+      <h1>To save your video, please complete the form below:</h1>
+      <form action="/users/<%=userId%>/videos" method="POST">
+      <h3>Title</h3><input type="text" name="video[title]" size="36"><br>
+      <h3>Description</h3><input type="text" name="video[description]" size="36">
+      <input type='hidden' name="video[ytVideoId]" id="videoId"/><br><br>
+      <button type="submit">Save to Profile</button>
     </form>
-  </div>
-  
-   <!-- Footer -->
-   <footer>
-       <div class="container">
-           <div class="row">
-               <div class="col-lg-12">
-                   <ul class="list-inline">
+    <br><br>
+    </div>
+    <!--1. The 'widget' div element contains the upload widget. -->
+    <!-- The 'player' div element contains the player IFrame. -->
+    <div id="widget"></div>
+    <div id="player"></div>
+
+    <div>
+      <form method="POST" action="/logout?_method=DELETE">
+        <button class="btn btn-danger">Logout</button>
+      </form>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
                     <li>
-                        <a href="/">Home</a>
-                    </li>
-                       <li class="footer-menu-divider">&sdot;</li>
-                       <li>
-                           <a href="/users/videos/new">Create Video</a>
-                       </li>
-                       <li class="footer-menu-divider">&sdot;</li>
-                       <li>
-                           <a href="/profile">Profile</a>
-                       </li>
-                   </ul>
-                   <p class="copyright text-muted small">Copyright &copy; Kiddish 2014. All Rights Reserved</p>
-               </div>
-           </div>
-       </div>
-   </footer>
+                          <a href="/">Home</a>
+                      </li>
+                        <li>
+                            <a href="/SignUp">Sign Up</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/login">Login</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/users/videos/new">Create Video</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="/profile">Profile</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Kiddish 2014. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-   <!-- jQuery -->
-   <script src="js/jquery.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-   <!-- Bootstrap ßCore JavaScript -->
-   <script src="js/bootstrap.min.js"></script>
-   
-
- </body>
+    <!-- Bootstrap ßCore JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
