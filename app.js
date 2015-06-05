@@ -153,9 +153,11 @@ app.get('/users/videos/:yt', function(req, res) {
   db.Video.findAll({where:{ytVideoId: ytVideoId}})
    .then(function(singleVideo){
       console.log("THIS IS THE VIDEO", singleVideo);
-   res.render('users/videos/show.ejs',{taco: singleVideo, ytVideoId: ytVideoId}); // We use res.render to display an EJS file instead of res.send() 
+   res.render('users/videos/show.ejs', {singleVideo: singleVideo, ytVideoId: ytVideoId}); // We use res.render to display an EJS file instead of res.send() 
  })
 });
+
+
 
 //NEW VIDEO POST:
 app.post('/users/:id/videos', function(req, res) {
