@@ -31,7 +31,7 @@ h6 {
 }
 
 .intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
@@ -40,7 +40,7 @@ h6 {
 }
 
 .sign-up{
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: left;
     color: grey;
@@ -49,8 +49,8 @@ h6 {
 }
 
 .login{
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
+    padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 10px;
     text-align: left;
     color: grey;
     background: url(../img/feet.jpg) no-repeat center center;
@@ -64,6 +64,21 @@ h6 {
     color: #f8f8f8;
     background: url(../img/kid_tricycle.jpg) no-repeat center center;
     background-size: cover;
+}
+
+.introBox {
+    position: relative;
+    padding-bottom: 50%;
+}
+
+.loginBox {
+    position: relative;
+    padding-bottom: 50%;
+}
+
+.signupBox {
+    position: relative;
+    padding-bottom: 50%;
 }
 
 .intro-message {
