@@ -81,7 +81,7 @@ app.post('/signup', function(req,res){
 app.get('/login', function(req,res){
     req.currentUser()
       .then(function(user){
-        console.log("THIS IS THE USER INFORMATION: ", user);
+        console.log("THIS IS THE USER INFORMATION: ");
         if (user) { //if already logged in, will redirect to profile page
             res.redirect('/profile');
         } else { // if not logged in, you will be sent to login page
@@ -98,14 +98,11 @@ app.post('/login', function(req,res){
     db.User.authenticate(email,password)
         .then(function(dbUser){
             if(dbUser) {
-              console.log("STAGE 2");
                 req.login(dbUser);
-                console.log("test", dbUser)
                 // userId = dbUser.id
                 // res.render('/users/'+ userId + '/profile')
                 res.redirect('/profile');
             } else {
-              console.log("STAGE 3");
                 res.redirect('/login');
             }
         }); 
@@ -118,8 +115,7 @@ app.get('/profile', function(req, res) {
   var userId = user.id;
   db.Video.findAll({where:{userId: userId}})
      .then(function(videos){
-        console.log("THIS IS VIDEOS", videos);
-        console.log("THE CREATED AT DATE IS: ", videos.createdAt);
+        console.log("THIS IS VIDEOS");
         res.render('users/profile.ejs', {videos: videos});
      })
    })
@@ -147,12 +143,8 @@ app.get('/users/videos/new', function(req, res) {
 app.get('/users/videos/:yt', function(req, res) {
   var ytVideoId = req.params.yt;
   console.log(ytVideoId);
-  // var videoId=req.params.id;
-  // console.log(videoId);
-  // db.Video.findById(ytId)
   db.Video.findAll({where:{ytVideoId: ytVideoId}})
    .then(function(singleVideo){
-      console.log("THIS IS THE VIDEO", singleVideo);
    res.render('users/videos/show.ejs', {singleVideo: singleVideo, ytVideoId: ytVideoId}); // We use res.render to display an EJS file instead of res.send() 
  })
 });
@@ -161,9 +153,7 @@ app.get('/users/videos/:yt', function(req, res) {
 
 //NEW VIDEO POST:
 app.post('/users/:id/videos', function(req, res) {
-  //CREATE LOGIC
-  console.log(req.params);
-  console.log(req.body);
+  console.log("just posted video");
   var video = req.body.video;
 
   db.Video.create({
@@ -187,8 +177,7 @@ app.delete('/users/:id/videos/:id', function (req,res) {
   db.Video.findById(videoId)
     .then(function(foundVideo){
       var userId = foundVideo.userId;
-      // console.log("This is the req.params ", userId);
-      // console.log("3 Video: ", foundVideo)
+
       foundVideo.destroy()
       .then(function() {
         res.redirect('/profile');
@@ -198,7 +187,7 @@ app.delete('/users/:id/videos/:id', function (req,res) {
 
 
 app.get('/sync', function(req, res) {
-  console.log("SYNC")
+  // console.log("SYNC")
   db.sequelize.sync({force:true}).then(function() {
     res.send("Db was synced successfully.");
   })
