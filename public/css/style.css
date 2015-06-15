@@ -68,18 +68,25 @@ h6 {
 
 .introBox {
     position: relative;
-    padding-bottom: 50%;
+    padding-top: 20%;
+    padding-bottom: 20%;
+    color: grey;
+}
+
+#title{
+/*    color:white;*/
 }
 
 .loginBox {
     position: relative;
-    padding-bottom: 50%;
+    padding-top: 20%;
+    padding-bottom: 30%;
 }
 
 .signupBox {
     position: relative;
-    padding-bottom: 50%;
-}
+    padding-top: 20%;
+    padding-bottom: 30%;}
 
 .intro-message {
     position: relative;
