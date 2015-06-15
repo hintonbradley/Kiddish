@@ -5,22 +5,20 @@
 
 <!-- Video Player -->
 <div class="vPlayer">
-   <div id="title">
-     <h1><%=singleVideo[0].title%></h1>
-   </div>
-     <!-- The 'player' div element contains the player IFrame. -->
-    <div>
-      <div id="showPlayer">
-        <iframe width="850" height="500" src="http://www.youtube.com/embed/<%=ytVideoId%>?rel=0&modestbranding=1">
-        </iframe>
-   </div>
-                <div id="description">
-       <h3>Description:</h3><p><%=singleVideo[0].description%></p>
-      </div>
-    </div>
-   </div>
- </div>
+  <div id="title">
+    <h1><%=singleVideo[0].title%></h1>
+  </div>
+  <!-- The 'player' div element contains the player IFrame. -->
+  <div id="showPlayer">
+    <iframe width="640" height="390" src="http://www.youtube.com/embed/<%=ytVideoId%>?rel=0&modestbranding=1">
+    </iframe>
+  </div>
+  <div id="description">
+    <h3>Description:</h3><p><%=singleVideo[0].description%></p>
+  </div>
 </div>
+
 <!-- End Video Player -->
+
 
 <% include ../../partials/footer2 %>

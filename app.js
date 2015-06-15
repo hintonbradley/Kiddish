@@ -185,7 +185,6 @@ app.delete('/users/:id/videos/:id', function (req,res) {
     });
 });
 
-
 app.get('/sync', function(req, res) {
   // console.log("SYNC")
   db.sequelize.sync({force:true}).then(function() {

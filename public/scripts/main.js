@@ -12,6 +12,7 @@
       function onYouTubeIframeAPIReady() {
         widget = new YT.UploadWidget('widget', {
           width: 1000,
+          height: 650,
           events: {
             'onUploadSuccess': onUploadSuccess,
             'onProcessingComplete': onProcessingComplete
@@ -36,8 +37,6 @@
       // 5. This function is called when a video has been successfully processed.
       function onProcessingComplete(event) {
         player = new YT.Player('player', {
-          height: 390,
-          width: 640,
           videoId: event.data.videoId,
           events: {}
         });
